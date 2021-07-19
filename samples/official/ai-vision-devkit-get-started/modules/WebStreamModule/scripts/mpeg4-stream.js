@@ -38,6 +38,8 @@ class Mpeg4Stream {
         }
 
         const rtspUrl = `rtsp://${rtspIp}:${rtspPort}/${rtspPath}`;
+        console.log(`Converting from RTSP: ${rtspUrl}`);
+        // const ffmpegParams = `-fflags nobuffer -rtsp_transport tcp -i ${rtspUrl} -vsync 0 -copyts -vcodec copy -movflags frag_keyframe+empty_moov -an -hls_flags delete_segments+append_list -f segment -segment_list_flags live -segment_time 1 -segment_list_size 3 -segment_format mpegts -segment_list_type m3u8 http://127.0.0.1:${this.streamingPort}/${this.secret}`
         const ffmpegParams = `-loglevel fatal -i ${rtspUrl} -vcodec copy -an -sn -dn -reset_timestamps 1 -movflags empty_moov+default_base_moof+frag_keyframe -bufsize 256k -f mp4 -seekable 0 -headers Access-Control-Allow-Origin:* -content_type video/mp4 http://127.0.0.1:${this.streamingPort}/${this.secret}`;
         console.log(`Running: ffmpeg ${ffmpegParams}`);
 

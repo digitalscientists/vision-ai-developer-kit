@@ -6,6 +6,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const adaro = require('adaro');
+const localtunnel = require('localtunnel');
 
 const indexRouter = require('./routes/index');
 
@@ -42,5 +43,18 @@ app.use(function(err, req, res) {
 
 const mpeg4 = new Mpeg4Stream('camera', 3001, 3002);
 mpeg4.startStreamingServer();
+
+(async () => {
+  const tunnel = await localtunnel({ port: 3002 });
+
+  // the assigned public url for your tunnel
+  // i.e. https://abcdefgjhij.localtunnel.me
+  tunnel.url;
+  console.log('WS tunneled');
+  console.log(tunnel.url);
+  tunnel.on('close', () => {
+    // tunnels are closed
+  });
+})();
 
 module.exports = app;
