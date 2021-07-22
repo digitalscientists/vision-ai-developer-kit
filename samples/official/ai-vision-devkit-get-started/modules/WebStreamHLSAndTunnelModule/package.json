@@ -1,0 +1,17 @@
+{
+    "name": "webstreammodule",
+    "version": "0.0.1",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "express": "^4.16.0",
+        "express-basic-auth": "^1.2.0",
+        "fluent-ffmpeg": "^2.1.2",
+        "http-errors": "^1.6.2",
+        "localtunnel": "^2.0.1"
+    },
+    "devDependencies": {
+        "eslint": "^5.16.0"
+    }
+}
